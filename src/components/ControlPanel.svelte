@@ -5,12 +5,12 @@
   
   export let isExpanded = false;
   export let settings = {
-    particleSpeed: 0.1,
-    repulsionForce: 100,
-    repulsionRadius: 150,
+    particleSpeed: 2,
+    repulsionForce: 6,
+    repulsionRadius: 109,
     returnSpeed: 0.02,
     baseHue: 220,
-    rangeHue: 100,
+    rangeHue: 193,
     particleCount: 700,
     glowIntensity: 200
   };
@@ -40,7 +40,7 @@
           <input 
             type="range" 
             min="0.1" 
-            max="3" 
+            max="4" 
             step="0.1" 
             value={settings.particleSpeed}
             on:input={(e) => updateSetting('particleSpeed', e.target.value)}

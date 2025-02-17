@@ -15,7 +15,7 @@
   let originalPositions = [];
 
   let settings = {
-    particleSpeed: 3.0,
+    particleSpeed: 2.0,
     repulsionForce: 6,
     repulsionRadius: 109,
     returnSpeed: 0.02,
