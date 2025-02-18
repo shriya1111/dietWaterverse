@@ -32,6 +32,7 @@
         <a href="#contact">Contact</a>
       </nav>
     </header>
+   
   </section>
 
   <section class="about" id="about">
@@ -45,17 +46,15 @@
             class="about-image"
             width="318"
             height="424"
-            style="border-radius: 7%;"
+            style="border-radius: 7%; opacity: 0.75;"
           />
         </div>
-        <div class="about-right">
+        <div class="tile" style="height: 364px; width: 378x;">
           <p class="intro">
             Hi, I'm a Software Engineer based in San Francisco, California,
-            passionate about creating apps to make tasks easier.
-          </p>
-          <p>
-            I specialize in full-stack development with a focus on modern web
-            technologies and interactive user interfaces. Computer Vision etc...
+            passionate about developing products and experimenting with new
+            technologies to make day to day tasks easier. In my free time, I also like to 
+            draw and create new characters, play badminton, and learning how to figureskate :)
           </p>
         </div>
       </div>
@@ -66,31 +65,80 @@
     <h2>Projects</h2>
     <div class="grid">
       <div class="tile">
-        <h3>Project 1</h3>
+        <h3>Fulcrum</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Built a backend pipeline for document data extraction, integrating Azure OCR and fine-tuning LLMs to achieve 97% accuracy.
+          Developed a scalable system using Kubernetes and optimized concurrency for parallel processing, achieving 15x throughput.
         </p>
       </div>
       <div class="tile">
-        <h3>Project 2</h3>
+        <h3>Bird Dog</h3>
         <p>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut aliquip ex ea commodo consequat.
+          Developed a customizable React app that automates identifying distressed houses from dashcam footage.
+          The application uses YOLO for object detection and GPT-4 for frame analysis to extract data.
+          Applied data preprocessing techniques like image denoising and histogram equalization, along with data augmentation,
+          to improve accuracy.
         </p>
       </div>
       <div class="tile">
-        <h3>Project 3</h3>
+        <h3>MatchA</h3>
         <p>
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur.
+          Built a web application that helps users discover potential friends by visualizing nearby matches on an interactive map.
+          Implemented real-time location matching, and chat functionality using NewsAPI, T5, and OpenAI APIs.
         </p>
       </div>
       <div class="tile">
-        <h3>Project 4</h3>
+        <h3>EvoCal</h3>
+        <p>
+          Implemented a Next.js and Flask-based full-stack web application, automating email parsing and event scheduling
+          using Gmail, Google Calendar, OpenAI APIs, with secure token storage in Google Cloud SQL database.          
+        </p>
+      </div>
+      <div class="tile">
+        <h3>Activision Blizzard Ads</h3>
+        <p>
+          Developed a filter based search for in-app advertisements using Java, Spring Boot, MySQL, and Elasticsearch.
+Built an ETL pipeline to sync external ad data, ensuring real-time updates via scheduled Cron jobs.
+Managed migrations with Flyway and built Jooq models. Developed REST APIs to integrate search with frontend.
+        </p>
+      </div>
+      <div class="tile">
+        <h3>Fake News Detector</h3>
+        <p>
+          Chrome extension using React frontend and Go backend to detect fake news using NLP sentiment analysis techniques
+          and web scraping. Utilized Python for data processing and model training, ensuring reliable predictions on the authenticity
+          of news articles.
+        </p>
+      </div>
+      <div class="tile">
+        <h3>Workday</h3>
+        <p>
+          Developed a Workday dashboard for 50+ teams to analyze key performance indicators, track performance, and generate real-time insights for PI planning.
+          Restructured raw data into actionable insights, providing teams with strengths, improvement areas, and solutions.
+          Built the frontend with JavaScript and the backend with Java, Spring MVC, and MySQL, utilizing REST APIs for integration.
+        </p>
+      </div>
+      <div class="tile">
+        <h3>Jacket Connect</h3>
+        <p>
+          Web application that connects underclassmen to older student mentors to
+help with any university related information like course registration, clubs, selecting concentration, etc. Utilized SQL,
+Python, flask, and React to create the backend API and frontend interface.
+        </p>
+      </div>
+      <div class="tile">
+        <h3>Western Union</h3>
         <p>
           Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
           officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+      <div class="tile">
+        <h3>Mapable</h3>
+        <p>
+          Using Google Maps API, React.js, and mathematical algorithms,
+           developed maps that show the best route that takes the least 
+           effort to travel from a place to place instead of the fastest route
         </p>
       </div>
     </div>
@@ -103,12 +151,12 @@
         <div class="contact-info">
           <p>I'm always open to new opportunities and interesting projects.</p>
           <div class="contact-links">
-            <a href="mailto:your.email@example.com" class="contact-link">
+            <a class="contact-link" href="mailto:shriya1881@gmail.com">
               <span class="icon">✉</span>
               Email
             </a>
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/shriya1111"
               target="_blank"
               class="contact-link"
             >
@@ -116,7 +164,7 @@
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/shriyaedukulla/"
               target="_blank"
               class="contact-link"
             >
@@ -215,7 +263,7 @@
 
   .about-grid {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 2fr 2fr;
     gap: 0rem;
     align-items: start;
   }
