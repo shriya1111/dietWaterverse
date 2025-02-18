@@ -1,8 +1,8 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  
+  import { createEventDispatcher } from "svelte";
+
   const dispatch = createEventDispatcher();
-  
+
   export let isExpanded = false;
   export let settings = {
     particleSpeed: 2,
@@ -12,12 +12,12 @@
     baseHue: 220,
     rangeHue: 193,
     particleCount: 700,
-    glowIntensity: 200
+    glowIntensity: 200,
   };
 
   function updateSetting(key, value) {
     settings[key] = Number(value);
-    dispatch('update', settings);
+    dispatch("update", settings);
   }
 
   function togglePanel() {
@@ -27,23 +27,23 @@
 
 <div class="control-panel" class:expanded={isExpanded}>
   <button class="toggle-button" on:click={togglePanel}>
-    {isExpanded ? '×' : '⚙'}
+    {isExpanded ? "×" : "⚙"}
   </button>
-  
+
   {#if isExpanded}
     <div class="controls">
       <h3>Particle Settings</h3>
-      
+
       <div class="control-group">
         <label>
           Particle Speed
-          <input 
-            type="range" 
-            min="0.1" 
-            max="4" 
-            step="0.1" 
+          <input
+            type="range"
+            min="0.1"
+            max="4"
+            step="0.1"
             value={settings.particleSpeed}
-            on:input={(e) => updateSetting('particleSpeed', e.target.value)}
+            on:input={(e) => updateSetting("particleSpeed", e.target.value)}
           />
           <span class="value">{settings.particleSpeed.toFixed(2)}</span>
         </label>
@@ -51,14 +51,29 @@
 
       <div class="control-group">
         <label>
+          Number of Particles
+          <input
+            type="range"
+            min="0"
+            max="1000"
+            step="1"
+            value={settings.particleCount}
+            on:input={(e) => updateSetting("particleCount", e.target.value)}
+          />
+          <span class="value">{settings.particleCount}</span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
           Repulsion Force
-          <input 
-            type="range" 
-            min="0" 
-            max="200" 
-            step="1" 
+          <input
+            type="range"
+            min="0"
+            max="200"
+            step="1"
             value={settings.repulsionForce}
-            on:input={(e) => updateSetting('repulsionForce', e.target.value)}
+            on:input={(e) => updateSetting("repulsionForce", e.target.value)}
           />
           <span class="value">{settings.repulsionForce}</span>
         </label>
@@ -67,13 +82,13 @@
       <div class="control-group">
         <label>
           Repulsion Radius
-          <input 
-            type="range" 
-            min="50" 
-            max="300" 
-            step="1" 
+          <input
+            type="range"
+            min="50"
+            max="300"
+            step="1"
             value={settings.repulsionRadius}
-            on:input={(e) => updateSetting('repulsionRadius', e.target.value)}
+            on:input={(e) => updateSetting("repulsionRadius", e.target.value)}
           />
           <span class="value">{settings.repulsionRadius}px</span>
         </label>
@@ -82,13 +97,13 @@
       <div class="control-group">
         <label>
           Return Speed
-          <input 
-            type="range" 
-            min="0.01" 
-            max="0.1" 
-            step="0.01" 
+          <input
+            type="range"
+            min="0.01"
+            max="0.1"
+            step="0.01"
             value={settings.returnSpeed}
-            on:input={(e) => updateSetting('returnSpeed', e.target.value)}
+            on:input={(e) => updateSetting("returnSpeed", e.target.value)}
           />
           <span class="value">{settings.returnSpeed.toFixed(2)}</span>
         </label>
@@ -97,13 +112,13 @@
       <div class="control-group">
         <label>
           Base Color (Hue)
-          <input 
-            type="range" 
-            min="0" 
-            max="360" 
-            step="1" 
+          <input
+            type="range"
+            min="0"
+            max="360"
+            step="1"
             value={settings.baseHue}
-            on:input={(e) => updateSetting('baseHue', e.target.value)}
+            on:input={(e) => updateSetting("baseHue", e.target.value)}
           />
           <span class="value">{settings.baseHue}°</span>
         </label>
@@ -112,13 +127,13 @@
       <div class="control-group">
         <label>
           Color Range
-          <input 
-            type="range" 
-            min="0" 
-            max="360" 
-            step="1" 
+          <input
+            type="range"
+            min="0"
+            max="360"
+            step="1"
             value={settings.rangeHue}
-            on:input={(e) => updateSetting('rangeHue', e.target.value)}
+            on:input={(e) => updateSetting("rangeHue", e.target.value)}
           />
           <span class="value">{settings.rangeHue}°</span>
         </label>
@@ -127,13 +142,13 @@
       <div class="control-group">
         <label>
           Glow Intensity
-          <input 
-            type="range" 
-            min="100" 
-            max="400" 
-            step="10" 
+          <input
+            type="range"
+            min="100"
+            max="400"
+            step="10"
             value={settings.glowIntensity}
-            on:input={(e) => updateSetting('glowIntensity', e.target.value)}
+            on:input={(e) => updateSetting("glowIntensity", e.target.value)}
           />
           <span class="value">{settings.glowIntensity}%</span>
         </label>
@@ -162,7 +177,6 @@
   }
 
   .toggle-button {
-    position: absolute;
     top: 0;
     left: 0;
     width: 40px;
@@ -192,7 +206,7 @@
 
   h3 {
     margin: 0 0 1rem 0;
-    color: #8B5CF6;
+    color: #8b5cf6;
   }
 
   .control-group {
@@ -213,7 +227,7 @@
 
   .value {
     float: right;
-    color: #8B5CF6;
+    color: #8b5cf6;
   }
 
   /* Custom range input styling */
@@ -229,14 +243,14 @@
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
-    background: #8B5CF6;
+    background: #8b5cf6;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
   }
 
   input[type="range"]::-webkit-slider-thumb:hover {
-    background: #9F7AEA;
+    background: #9f7aea;
     transform: scale(1.1);
   }
 </style>

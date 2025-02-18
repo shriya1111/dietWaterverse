@@ -14,7 +14,7 @@
   let mouse = { x: 0, y: 0, isActive: false };
   let originalPositions = [];
 
-  let settings = {
+  export let settings = {
     particleSpeed: 2.0,
     repulsionForce: 6,
     repulsionRadius: 109,
@@ -261,29 +261,22 @@
   }
 
   onMount(() => {
-    canvasA = document.createElement("canvas");
-    canvasB = document.createElement("canvas");
-
-    canvasB.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    `;
-
     container = document.querySelector(".particle-container");
-    container.appendChild(canvasB);
 
+    // Initialize canvas contexts
     ctxA = canvasA.getContext("2d");
     ctxB = canvasB.getContext("2d");
 
+    // Set initial canvas size
     resize();
+
+    // Initialize particles
     initParticles();
+
+    // Start animation
     draw();
 
+    // Add event listeners
     window.addEventListener("resize", resize);
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
@@ -292,13 +285,14 @@
       window.removeEventListener("resize", resize);
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      container.removeChild(canvasB);
     };
   });
 </script>
 
 <div class="particle-container">
-  <slot></slot>
+  <canvas bind:this={canvasA} />
+  <canvas bind:this={canvasB} />
+  <slot />
   <ControlPanel on:update={handleSettingsUpdate} />
 </div>
 
@@ -307,13 +301,23 @@
     position: fixed;
     top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    /* pointer-events: none;
   }
 
   :global(.content) {
-    pointer-events: auto; */
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
   }
 </style>
