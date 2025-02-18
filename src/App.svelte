@@ -1,6 +1,7 @@
 <script>
   import ParticleBackground from "./components/ParticleBackground.svelte";
   import ControlPanel from "./components/ControlPanel.svelte";
+  import aboutMeImage from "./assets/about_me.jpg";
 
   let settings = {
     particleSpeed: 2,
@@ -39,7 +40,7 @@
       <div class="about-grid">
         <div class="about-left">
           <img
-            src="src/assets/about_me.jpg"
+            src={aboutMeImage}
             alt="Shriya Edukulla"
             class="about-image"
             width="318"
