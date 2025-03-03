@@ -14,25 +14,96 @@
     glowIntensity: 200,
   };
 
+  let activeSection = "hero";
+  let headerVisible = false;
+  
   function handleSettingsUpdate(event) {
     settings = event.detail;
   }
+
+  function scrollToSection(id) {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      activeSection = id;
+    }
+  }
+
+  function handleScroll() {
+    const sections = document.querySelectorAll("section");
+    const scrollPosition = window.scrollY + window.innerHeight / 3;
+    
+    // Make header visible after first section
+    headerVisible = scrollPosition > window.innerHeight / 2;
+    
+    // Find the current active section
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition < sectionTop + sectionHeight
+      ) {
+        activeSection = section.id;
+      }
+    });
+  }
 </script>
+
+<svelte:window on:scroll={handleScroll} />
 
 <ParticleBackground {settings} />
 <ControlPanel {settings} on:update={handleSettingsUpdate} />
 
+<!-- Fixed navigation header that appears after scrolling -->
+<header class="fixed-header" class:visible={headerVisible}>
+  <nav>
+    <a 
+      href="#hero" 
+      on:click|preventDefault={() => scrollToSection("hero")}
+      class:active={activeSection === "hero"}
+    >
+      Home
+    </a>
+    <a 
+      href="#about" 
+      on:click|preventDefault={() => scrollToSection("about")}
+      class:active={activeSection === "about"}
+    >
+      About
+    </a>
+    <a 
+      href="#projects" 
+      on:click|preventDefault={() => scrollToSection("projects")}
+      class:active={activeSection === "projects"}
+    >
+      Projects
+    </a>
+    <a 
+      href="#contact" 
+      on:click|preventDefault={() => scrollToSection("contact")}
+      class:active={activeSection === "contact"}
+    >
+      Contact
+    </a>
+  </nav>
+</header>
+
 <main>
-  <section class="hero">
+  <section class="hero" id="hero">
     <header>
-      <h1 class="logo" style="font-family: 'Press Start 2P';">SHRIYA</h1>
+      <h2 class="logo" style="font-family: 'Space Mono', monospace; letter-spacing: 1.25px;">Welcome, I'm Shriya</h2>
       <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" on:click|preventDefault={() => scrollToSection("about")}>About</a>
+        <a href="#projects" on:click|preventDefault={() => scrollToSection("projects")}>Projects</a>
+        <a href="#contact" on:click|preventDefault={() => scrollToSection("contact")}>Contact</a>
       </nav>
     </header>
-   
+    
+    <div class="scroll-indicator">
+      <p>Scroll Down</p>
+      <div class="scroll-arrow"></div>
+    </div>
   </section>
 
   <section class="about" id="about">
@@ -50,8 +121,9 @@
           />
         </div>
         <div class="tile" style="height: 364px; width: 378x;">
-          <p class="intro">
-            Hi, I'm a Software Engineer based in San Francisco, California,
+          <h3>I am a Full Stack Developer :)</h3>
+          <p class="intro" style="font-size: 1.2rem;">
+            Hi, I'm a Founding Engineer at a startup that automates processes for acccountants and I am 
             passionate about developing products and experimenting with new
             technologies to make day to day tasks easier. In my free time, I also like to 
             draw and create new characters, play badminton, and learning how to figureskate :)
@@ -192,9 +264,31 @@ Python, flask, and React to create the backend API and frontend interface.
     scroll-behavior: smooth;
   }
 
+  /* Hide scrollbars */
+  :global(body)::-webkit-scrollbar {
+    display: none;
+  }
+
+  :global(body) {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   main {
     position: relative;
     z-index: 1;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  main::-webkit-scrollbar {
+    display: none;
+  }
+
+  main {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   section {
@@ -203,15 +297,52 @@ Python, flask, and React to create the backend API and frontend interface.
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4rem 2rem;
+    position: relative;
+    scroll-snap-align: center;
+    position: relative;
+    overflow-y: auto;
   }
 
   .hero {
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Fixed navigation header */
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    z-index: 1000;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .fixed-header.visible {
+    transform: translateY(0);
+  }
+
+  .fixed-header nav {
+    background: transparent;
+    padding: 0.5rem 2rem;
+    border-radius: 30px;
+    margin: 0;
   }
 
   header {
     text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   h1 {
@@ -248,11 +379,27 @@ Python, flask, and React to create the backend API and frontend interface.
     color: #ffffffc8;
     text-decoration: none;
     font-size: 1.1rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 1rem;
   }
 
   a:hover {
     color: white;
+  }
+
+  a.active {
+    color: white;
+  }
+
+  a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
   }
 
   .about-content,
@@ -273,19 +420,6 @@ Python, flask, and React to create the backend API and frontend interface.
     margin-bottom: 1.5rem;
   }
 
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .tag {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.9rem;
-  }
-
   .tiles {
     width: 100%;
   }
@@ -297,6 +431,16 @@ Python, flask, and React to create the backend API and frontend interface.
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
+    padding: 1rem;
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   .tile {
@@ -358,13 +502,58 @@ Python, flask, and React to create the backend API and frontend interface.
     transform: translateX(10px);
   }
 
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 45%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(45deg);
+    margin-top: 10px;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
   .icon {
     font-size: 1.5rem;
   }
 
+  /* Media Queries */
   @media (max-width: 768px) {
     h1 {
       font-size: 3rem;
+    }
+
+    .fixed-header nav {
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .fixed-header a {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.7rem;
     }
 
     .about-grid {
